@@ -22,7 +22,7 @@ class MainTable extends React.PureComponent {
     const sort = data.filter((item) => {
       return item.rparent;
     });
-    console.log(this.sortData(sort));
+    /* console.log(this.props); */
     const row = this.sortData(sort).map((item, i) => {
       return (
         <tr key={i}>

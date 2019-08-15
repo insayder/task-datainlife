@@ -2,3 +2,12 @@
   margin-right: 25px;
   margin-top: 25px;
 }
+
+.main-toolbar_list {
+  cursor: pointer;
+  color: blue;
+}
+
+.main-toolbar_list:hover{
+  color: black;
+}
