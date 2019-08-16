@@ -17,13 +17,13 @@ class Toolbar extends React.Component {
             <NavLink href="#" onClick={() => this.props.getSection(2)}>Манжеты</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#" onClick={() => this.props.getSection(3)}>Кольца</NavLink>
+            <NavLink href="#" onClick={() => this.props.getSection(3)}>Кольца по ГОСТ</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="#" onClick={() => this.props.getSection(4)}>Кольца защитные</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#" onClick={() => this.props.getSection(5)}>Разное</NavLink>
+            <NavLink href="#" onClick={() => this.props.getSection(5)}>Весь ассортимент</NavLink>
           </NavItem>
         </Nav>
       </div>
