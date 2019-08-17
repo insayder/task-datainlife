@@ -4,7 +4,7 @@ import * as actions from '../../actions/tables';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import './index.css';
 
-class Toolbar extends React.Component {
+class Toolbar extends React.PureComponent {
   render() {
     return (
       <div className="main-toolbar">
