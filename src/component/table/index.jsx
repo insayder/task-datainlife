@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/tables';
 import { Table, Spinner, Input } from 'reactstrap';
+import Footer from '../footer';
 import './index.css';
 
-class MainTable extends React.Component {
+class MainTable extends React.PureComponent {
 
   state = {
     data: []
@@ -13,7 +14,7 @@ class MainTable extends React.Component {
   async componentDidMount() {
     await this.props.getDataTable();
     const { data } = this.props.data.default.reducersTables.dataTable;
-    this.setState({ data: data })
+    this.setState({ data: data }, () => console.log(this.state.data))
   }
   // сортировка по разделам
   sortData = () => {
@@ -37,21 +38,33 @@ class MainTable extends React.Component {
   // получить значение инпута
   updateInputValue = (event, itemId, price) => {
     const { data } = this.state;
-    // const totals = event.target.value * price;
     const newData = data.map((items) => {
       const searchValue = items.rid === itemId ? event.target.value * price : items.total;
-      return Object.assign(items, { total: searchValue });
+      const searchTotal = items.rid === itemId ? event.target.value : items.value;
+      return Object.assign(items, { total: searchValue, value: searchTotal });
     })
     this.setState({
-      data: newData
+      data: newData,
     })
   }
+
+  getBascetForm = () => {
+    const { data } = this.state;
+    const newData = data.map((items) => {
+      let product = {
+        [items.rid]: items.value
+      }
+      if (items.value !== undefined) {
+        return product;
+      }
+    })
+    return newData;
+  }
+
 
   // получить тулбар
   getTable = () => {
     const { data } = this.state;
-    console.log(this.state.data.map((item) => item.total))
-    console.log(data);
     const sort = data.filter((item) => {
       if (item.rparent === 'undefined' || this.sortData() === 'ALL') {
         return item;
@@ -71,7 +84,7 @@ class MainTable extends React.Component {
           <td><Input
             bsSize='sm'
             type="number"
-            // value={this.state.inputValue}
+            value={item.value}
             onChange={(change) => this.updateInputValue(change, item.rid, item.rposition)} /></td>
           <td>{total}</td>
         </tr>
@@ -98,7 +111,10 @@ class MainTable extends React.Component {
   render() {
     const data = this.props.data.default.reducersTables.dataTable;
     return (
-      data ? this.getTable() : <Spinner className="main-spinner" style={{ width: '5rem', height: '5rem' }} />
+      <Fragment>
+        {data ? this.getTable() : <Spinner className="main-spinner" style={{ width: '5rem', height: '5rem' }} />}
+        <Footer basketData={this.getBascetForm()} />
+      </Fragment>
     );
   }
 }
