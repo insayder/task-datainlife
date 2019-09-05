@@ -1,1 +1,1 @@
-Для запуска приложения: yarn start
+yarn start
